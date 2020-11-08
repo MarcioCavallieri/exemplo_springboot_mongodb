@@ -1,6 +1,8 @@
 package com.marciocavallieri.workshopmongodb.recursos;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.marciocavallieri.workshopmongodb.dominio.Usuario;
 import com.marciocavallieri.workshopmongodb.servicos.UsuarioServico;
 
+import dto.UsuarioDto;
+
 @RestController
 @RequestMapping(value = "/usuarios")
 public class UsuarioRecurso {
@@ -16,9 +20,9 @@ public class UsuarioRecurso {
 	private UsuarioServico servico;
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public ResponseEntity<List<Usuario>> obterTodos(){			
+	public ResponseEntity<List<UsuarioDto>> obterTodos(){			
 		List<Usuario> lista = servico.obterTodos();
-				
-		return ResponseEntity.ok(lista);
+		List<UsuarioDto> listaDto = lista.stream().map(u -> new UsuarioDto(u)).collect(Collectors.toList());
+		return ResponseEntity.ok(listaDto);
 	}
 }
