@@ -47,4 +47,11 @@ public class UsuarioRecurso {
 		
 		return ResponseEntity.created(uri).build();
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> deletar(@PathVariable String id) {
+		servico.deletar(id);
+		
+		return ResponseEntity.noContent().build();
+	}
 }

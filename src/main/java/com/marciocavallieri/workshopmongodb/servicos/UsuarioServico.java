@@ -34,6 +34,11 @@ public class UsuarioServico {
 		return repositorio.insert(obj);
 	}
 	
+	public void deletar(String id) {
+		obterPorId(id);
+		repositorio.deleteById(id);
+	}
+	
 	public Usuario fromDTO(UsuarioDto obj) {
 		return new Usuario(obj.getId(), obj.getNome(), obj.getEmail());
 	}
