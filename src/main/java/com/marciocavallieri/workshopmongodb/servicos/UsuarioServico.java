@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.marciocavallieri.workshopmongodb.dominio.Usuario;
 import com.marciocavallieri.workshopmongodb.repositorios.UsuarioRepositorio;
 
+import dto.UsuarioDto;
+
 @Service
 public class UsuarioServico {
 	@Autowired
@@ -27,4 +29,13 @@ public class UsuarioServico {
 		
 		return u.get();
 	}
+	
+	public Usuario inserir(Usuario obj) {
+		return repositorio.insert(obj);
+	}
+	
+	public Usuario fromDTO(UsuarioDto obj) {
+		return new Usuario(obj.getId(), obj.getNome(), obj.getEmail());
+	}
+	
 }
