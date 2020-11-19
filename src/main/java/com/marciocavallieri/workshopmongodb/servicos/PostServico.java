@@ -24,5 +24,6 @@ public class PostServico {
 	
 	public List<Post> obterPorTituloContendo(String texto) {
 		return repositorio.findByTituloContainingIgnoreCase(texto);
+		//return repositorio.findByTitulo(texto);
 	}
 }
