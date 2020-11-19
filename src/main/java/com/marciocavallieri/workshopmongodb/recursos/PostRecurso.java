@@ -1,5 +1,6 @@
 package com.marciocavallieri.workshopmongodb.recursos;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,33 @@ import resource.util.URL;
 public class PostRecurso {
 	@Autowired
 	private PostServico servico;
-	
+
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
-	public ResponseEntity<Post> obterPorId(@PathVariable String id){			
+	public ResponseEntity<Post> obterPorId(@PathVariable String id) {
 		Post p = servico.obterPorId(id);
-		
+
 		return ResponseEntity.ok().body(p);
 	}
-	
+
 	@RequestMapping(value = "/buscadetitulo", method = RequestMethod.GET)
-	public ResponseEntity<List<Post>> obterPorTituloContendo(@RequestParam(value = "text", defaultValue = "") String texto) {			
+	public ResponseEntity<List<Post>> obterPorTituloContendo(
+			@RequestParam(value = "text", defaultValue = "") String texto) {
 		texto = URL.decodificarParametros(texto);
 		List<Post> lista = servico.obterPorTituloContendo(texto);
+
+		return ResponseEntity.ok().body(lista);
+	}
+
+	@RequestMapping(value = "/buscadetitulofull", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> findByOcorrenciaNoTituloComIntervaloDeData(
+			@RequestParam(value = "text", defaultValue = "") String texto, 
+			@RequestParam(value = "text", defaultValue = "") String dataInicial,
+			@RequestParam(value = "text", defaultValue = "") String dataFinal) {
+
+		Date ini = URL.converterData(dataInicial, new Date(0L));
+		Date fim = URL.converterData(dataFinal, new Date());
 		
+		List<Post> lista =  servico.findByOcorrenciaNoTituloComIntervaloDeData(texto, ini, fim);
 		return ResponseEntity.ok().body(lista);
 	}
 }
