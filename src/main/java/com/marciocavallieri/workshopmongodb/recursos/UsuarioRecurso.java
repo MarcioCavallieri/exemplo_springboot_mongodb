@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.marciocavallieri.workshopmongodb.dominio.Post;
 import com.marciocavallieri.workshopmongodb.dominio.Usuario;
 import com.marciocavallieri.workshopmongodb.servicos.UsuarioServico;
 
@@ -62,5 +63,12 @@ public class UsuarioRecurso {
 		u = servico.atualizar(u);
 		
 		return ResponseEntity.noContent().build();
+	}
+	
+	@RequestMapping(value = "/{id}/posts", method = RequestMethod.GET)
+	public ResponseEntity<List<Post>> obterPosts(@PathVariable String id){			
+		Usuario u = servico.obterPorId(id);
+		
+		return ResponseEntity.ok().body(u.getPosts());
 	}
 }
