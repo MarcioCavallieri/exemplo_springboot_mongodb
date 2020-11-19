@@ -12,6 +12,7 @@ import com.marciocavallieri.workshopmongodb.repositorios.PostRepositorio;
 import com.marciocavallieri.workshopmongodb.repositorios.UsuarioRepositorio;
 
 import dto.AutorDto;
+import dto.ComentarioDto;
 
 @Configuration
 public class Instanciacao implements CommandLineRunner {
@@ -39,6 +40,13 @@ public class Instanciacao implements CommandLineRunner {
 		Post post1 = new Post(null, sdf.parse("21/03/2018"), "Partiu viagem", "Vou viaja para SP, abraços!", new AutorDto(maria));
 		Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia", "Acordei feliz hj", new AutorDto(maria));
 	
+		ComentarioDto comentario1 = new ComentarioDto("Boa viagem mano!", sdf.parse("21/03/2018"), new AutorDto(alex));
+		ComentarioDto comentario2 = new ComentarioDto("Aproveite!", sdf.parse("23/03/2018"), new AutorDto(bob));
+		ComentarioDto comentario3 = new ComentarioDto("Tenha um ótimo dia!", sdf.parse("23/03/2018"), new AutorDto(alex));
+		
+		post1.getComentarios().addAll(Arrays.asList(comentario1, comentario2));
+		post2.getComentarios().add(comentario3);
+		
 		postRepositorio.saveAll(Arrays.asList(post1, post2));
 		
 		maria.getPosts().addAll(Arrays.asList(post1, post2));

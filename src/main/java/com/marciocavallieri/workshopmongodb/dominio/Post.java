@@ -1,11 +1,13 @@
 package com.marciocavallieri.workshopmongodb.dominio;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-
 import dto.AutorDto;
+import dto.ComentarioDto;
 
 @Document
 public class Post implements Serializable {
@@ -17,7 +19,7 @@ public class Post implements Serializable {
 	private String titulo;
 	private String corpo;
 	private AutorDto autor;
-	
+	private List<ComentarioDto> comentarios = new ArrayList<ComentarioDto>();
 	
 	public Post () {
 		
@@ -51,6 +53,10 @@ public class Post implements Serializable {
 	public AutorDto getAutor() {
 		return autor;
 	}
+	
+	public List<ComentarioDto> getComentarios() {
+		return comentarios;
+	}
 
 	public void setId(String id) {
 		this.id = id;
@@ -70,6 +76,10 @@ public class Post implements Serializable {
 
 	public void setAutor(AutorDto autor) {
 		this.autor = autor;
+	}
+	
+	public void setComentarios(List<ComentarioDto> comentarios) {
+		this.comentarios = comentarios;
 	}
 	
 	@Override
